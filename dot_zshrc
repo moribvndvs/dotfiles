@@ -1,5 +1,8 @@
 source ~/dev/zsh-repos/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 setopt auto_cd
 
+# set neovim as default editor
+export EDITOR="/opt/homebrew/bin/nvim"
+
 eval "$(starship init zsh)"
 eval $(thefuck --alias)

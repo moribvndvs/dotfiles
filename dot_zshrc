@@ -1,0 +1,5 @@
+source ~/dev/zsh-repos/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+setopt auto_cd
+
+eval "$(starship init zsh)"
+eval $(thefuck --alias)

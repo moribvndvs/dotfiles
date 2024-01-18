@@ -8,16 +8,29 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
+-- behavior
+config.automatically_reload_config = true
+
 -- appearance
-config.color_scheme = 'OneHalfDark'
-config.font = wezterm.font 'FiraCode Nerd Font'
+local scheme = wezterm.get_builtin_color_schemes()['OneHalfDark']
+
+config.color_schemes = {['OneHalfDark'] = scheme }
+config.color_scheme = "OneHalfDark"
+config.font = wezterm.font "FiraCode Nerd Font"
 config.font_size = 16
 config.hide_tab_bar_if_only_one_tab = true
+config.use_fancy_tab_bar = true
+
 config.colors = {
-  tab_bar = {
-    background = '#282c34'
-  }
+	tab_bar = {
+		background = scheme.background,
+		active_tab = {
+			bg_color = scheme.background,
+			fg_color = "#c8c8c8",
+		}
+	}
 }
+
 -- mute inactive pane
 config.inactive_pane_hsb = {
   saturation = 0.6,

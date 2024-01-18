@@ -1,8 +1,33 @@
-source ~/dev/zsh-repos/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
+# install and source antigen
+[[ ! -d "$HOME/.antigen" ]] && git clone https://github.com/zsh-users/antigen.git "$HOME/.antigen"
+source "$HOME/.antigen/antigen.zsh"
+
+# load bundles
+antigen bundle zsh-users/zsh-autosuggestions
+
+# syntax highlighting should be last
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# apply changes
+antigen apply
+
+# some misc configuration
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+
+
+# enable auto cd
 setopt auto_cd
 
-# set neovim as default editor
-export EDITOR="/opt/homebrew/bin/nvim"
+# load aliases
+source "$HOME/.config/zsh/aliases.zsh"
+source "$HOME/.config/zsh/exports.zsh"
 
+# enable starship prompt and other utils
 eval "$(starship init zsh)"
 eval $(thefuck --alias)

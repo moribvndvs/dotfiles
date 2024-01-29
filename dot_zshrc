@@ -1,7 +1,26 @@
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt appendhistory
+HISTSIZE=50000
+SAVEHIST=50000
+# Immediately append to history file
+setopt INC_APPEND_HISTORY
+# Record timestamp in history
+setopt EXTENDED_HISTORY
+# Expire duplicate entries first when trimming history
+setopt HIST_EXPIRE_DUPS_FIRST
+# Dont record an entry that was just recorded again
+setopt HIST_IGNORE_DUPS
+# Delete old recorded entry if new entry is a duplicate
+setopt HIST_IGNORE_ALL_DUPS
+# Do not display a line previously found
+setopt HIST_FIND_NO_DUPS
+# Do not record an entry starting with a space
+setopt HIST_IGNORE_SPACE
+# Do not write duplicate entries in the history file
+setopt HIST_SAVE_NO_DUPS
+# Share history between all sessions
+setopt SHARE_HISTORY
+# Execute commands using history (e.g.: using !$) immediately
+unsetopt HIST_VERIFY
 
 # install and source antigen
 [[ ! -d "$HOME/.antigen" ]] && git clone https://github.com/zsh-users/antigen.git "$HOME/.antigen"
@@ -20,13 +39,16 @@ antigen apply
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
-
 # enable auto cd
 setopt auto_cd
+
+# init zoxide
+eval "$(zoxide init zsh)"
 
 # load aliases
 source "$HOME/.config/zsh/aliases.zsh"
 source "$HOME/.config/zsh/exports.zsh"
+[ -f ~/.config/zsh/fzf.zsh ] && source ~/.config/zsh/fzf.zsh
 
 # enable starship prompt and other utils
 eval "$(starship init zsh)"
@@ -35,3 +57,4 @@ eval $(thefuck --alias)
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+

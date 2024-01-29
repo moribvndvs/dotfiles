@@ -1,0 +1,72 @@
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[user]
+	name = Mike Grabski
+    email = 225027+moribvndvs@users.noreply.github.com
+[core]
+    editor = nvim
+    pager = delta
+    autocrlf = input
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    light = false
+    line-numbers = true
+    side-by-side = true
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
+[push]
+    default = simple
+[init]
+    defaultBranch = main
+[pull]
+    ff = only
+[fetch]
+    prune = true
+[alias]
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+  
+    nb = checkout -b  # create a new branch
+    del = branch -D  # delete a branch
+
+    # commit all the changes
+    c = !git add --all && git commit  -m   
+    # commit staged w/ message
+    cm = !git commit -m 
+    # commit all the changes with WIP as a commit message
+    wip = !git add --all && git commit -m 'WIP'
+    # drop current changes
+    drop = !git reset --hard HEAD
+
+    # push to the same branch name
+    p = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+    # force push to the same branch name
+    fp = !git push origin $(git rev-parse --abbrev-ref HEAD) -f
+    # amend everything in the current commit
+    amend = !git add --all && git commit --amend --no-edit
+    # amend and force push
+    afp = !git amend && git fp
+
+    # give a quick look at the state of the repo
+    state = !git fetch --prune && git fetch --tags && clear && git branch -vv && git status
+    # list the n last commits
+    ll = !git log --oneline -n
+
+    # rebase on main origin branch
+    rom = !git fetch --all && git rebase $(git rev-parse --abbrev-ref origin/HEAD)
+    # reset the branch to the distant one
+    rh = !git fetch && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
+    # interactive rebasing
+    ri = "!f() { git rebase -i HEAD~$1; }; f"
+  
+    # copy current hash in the clipboard 
+   cp = !git rev-parse HEAD | xargs echo -n  | xclip -selection clipboard

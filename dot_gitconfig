@@ -39,9 +39,9 @@
     del = branch -D  # delete a branch
 
     # commit all the changes
-    c = !git add --all && git commit  -m   
+    ca = !git add --all && git commit  -m   
     # commit staged w/ message
-    cm = !git commit -m 
+    c = !git commit -m 
     # commit all the changes with WIP as a commit message
     wip = !git add --all && git commit -m 'WIP'
     # drop current changes
@@ -69,4 +69,4 @@
     ri = "!f() { git rebase -i HEAD~$1; }; f"
   
     # copy current hash in the clipboard 
-   cp = !git rev-parse HEAD | xargs echo -n  | xclip -selection clipboard
+    cp = !git rev-parse HEAD | xargs echo -n  | xclip -selection clipboard
